@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,12 +32,12 @@ class CScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: _throwPureDartException,
-                      child: const Text('Throw pure Dart exception'),
+                      onPressed: _sendHttpRequest,
+                      child: const Text('Send HTTP request to existing URI'),
                     ),
                     ElevatedButton(
                       onPressed: _throwHttpException,
-                      child: const Text('Throw HTTP exception'),
+                      child: const Text('Send HTTP request to nonexisting URI'),
                     ),
                   ],
                 ),
@@ -44,10 +47,9 @@ class CScreen extends StatelessWidget {
         ),
       );
 
-  void _throwPureDartException() => Future<void>.error(
-        Exception('This is a pure Dart exception.'),
-        StackTrace.current,
-      );
+  Future<void> _sendHttpRequest() => httpClient
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'))
+      .then((value) => kDebugMode ? log(value.body, name: 'http') : null);
 
   Future<void> _throwHttpException() => httpClient.get(
         Uri.parse('http://this.uri.does.not.exist'),

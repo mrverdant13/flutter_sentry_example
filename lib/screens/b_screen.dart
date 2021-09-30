@@ -32,12 +32,21 @@ class BScreen extends StatelessWidget {
                       onPressed: _throwFlutterException,
                       child: const Text('Throw Flutter exception'),
                     ),
+                    ElevatedButton(
+                      onPressed: _throwPureDartException,
+                      child: const Text('Throw pure Dart exception'),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      );
+
+  void _throwPureDartException() => Future<void>.error(
+        Exception('This is a pure Dart exception.'),
+        StackTrace.current,
       );
 
   void _throwFlutterException() => FlutterError.reportError(
