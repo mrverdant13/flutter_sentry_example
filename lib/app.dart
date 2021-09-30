@@ -8,9 +8,11 @@ class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
     required this.httpClient,
+    this.navigatorObservers = const <NavigatorObserver>[],
   }) : super(key: key);
 
   final http.Client httpClient;
+  final List<NavigatorObserver> navigatorObservers;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -21,5 +23,6 @@ class MyApp extends StatelessWidget {
           BScreen.routeName: (context) => const BScreen(),
           CScreen.routeName: (context) => CScreen(httpClient: httpClient),
         },
+        navigatorObservers: navigatorObservers,
       );
 }
