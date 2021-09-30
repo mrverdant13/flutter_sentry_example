@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:sentry_example/screens/a_screen.dart';
 import 'package:sentry_example/screens/b_screen.dart';
 import 'package:sentry_example/screens/c_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.httpClient,
+  }) : super(key: key);
+
+  final http.Client httpClient;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -13,7 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AScreen.routeName: (context) => const AScreen(),
           BScreen.routeName: (context) => const BScreen(),
-          CScreen.routeName: (context) => const CScreen(),
+          CScreen.routeName: (context) => CScreen(httpClient: httpClient),
         },
       );
 }

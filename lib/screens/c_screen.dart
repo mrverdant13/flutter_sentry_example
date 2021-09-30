@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CScreen extends StatelessWidget {
-  const CScreen({Key? key}) : super(key: key);
+  const CScreen({
+    Key? key,
+    required this.httpClient,
+  }) : super(key: key);
+
+  final http.Client httpClient;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -19,11 +25,18 @@ class CScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Expanded(
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: _throwPureDartException,
-                    child: const Text('Throw pure Dart exception'),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _throwPureDartException,
+                      child: const Text('Throw pure Dart exception'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _throwHttpException,
+                      child: const Text('Throw HTTP exception'),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -34,6 +47,10 @@ class CScreen extends StatelessWidget {
   void _throwPureDartException() => Future<void>.error(
         Exception('This is a pure Dart exception.'),
         StackTrace.current,
+      );
+
+  Future<void> _throwHttpException() => httpClient.get(
+        Uri.parse('http://this.uri.does.not.exist'),
       );
 
   static const routeName = '/c';
