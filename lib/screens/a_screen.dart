@@ -20,16 +20,30 @@ class AScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Expanded(
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(BScreen.routeName),
-                    child: const Text('Go to `B Screen`'),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(BScreen.routeName),
+                      child: const Text('Go to `B Screen`'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _throwFlutterException,
+                      child: const Text('Throw Flutter exception'),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
+        ),
+      );
+
+  void _throwFlutterException() => FlutterError.reportError(
+        FlutterErrorDetails(
+          exception: Exception('This is a Flutter exception'),
+          stack: StackTrace.current,
         ),
       );
 

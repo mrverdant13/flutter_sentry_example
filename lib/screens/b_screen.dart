@@ -29,10 +29,6 @@ class BScreen extends StatelessWidget {
                       child: const Text('Go to `C Screen`'),
                     ),
                     ElevatedButton(
-                      onPressed: _throwFlutterException,
-                      child: const Text('Throw Flutter exception'),
-                    ),
-                    ElevatedButton(
                       onPressed: _throwPureDartException,
                       child: const Text('Throw pure Dart exception'),
                     ),
@@ -47,13 +43,6 @@ class BScreen extends StatelessWidget {
   void _throwPureDartException() => Future<void>.error(
         Exception('This is a pure Dart exception.'),
         StackTrace.current,
-      );
-
-  void _throwFlutterException() => FlutterError.reportError(
-        FlutterErrorDetails(
-          exception: Exception('This is a Flutter exception'),
-          stack: StackTrace.current,
-        ),
       );
 
   static const routeName = '/b';
