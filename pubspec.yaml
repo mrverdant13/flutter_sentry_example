@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.3
+  sentry_flutter: ^6.0.1
 
 dev_dependencies:
   flutter_test:
