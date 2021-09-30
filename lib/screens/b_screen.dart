@@ -13,18 +13,37 @@ class BScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Spacer(),
               Text(
                 'B Screen',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
                 textAlign: TextAlign.center,
               ),
-              ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(CScreen.routeName),
-                child: const Text('Go to `C Screen`'),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(CScreen.routeName),
+                      child: const Text('Go to `C Screen`'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _throwFlutterException,
+                      child: const Text('Throw Flutter exception'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
+        ),
+      );
+
+  void _throwFlutterException() => FlutterError.reportError(
+        FlutterErrorDetails(
+          exception: Exception('This is a Flutter exception'),
+          stack: StackTrace.current,
         ),
       );
 

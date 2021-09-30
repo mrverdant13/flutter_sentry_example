@@ -13,15 +13,20 @@ class AScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Spacer(),
               Text(
                 'A Screen',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
                 textAlign: TextAlign.center,
               ),
-              ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(BScreen.routeName),
-                child: const Text('Go to `B Screen`'),
+              Expanded(
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(BScreen.routeName),
+                    child: const Text('Go to `B Screen`'),
+                  ),
+                ),
               ),
             ],
           ),

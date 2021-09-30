@@ -12,50 +12,29 @@ class CScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Spacer(),
               Text(
                 'C Screen',
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline2,
                 textAlign: TextAlign.center,
               ),
-              const ErroredButton(),
+              Expanded(
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: _throwPureDartException,
+                    child: const Text('Throw pure Dart exception'),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       );
 
-  static const routeName = '/c';
-}
-
-class ErroredButton extends StatefulWidget {
-  const ErroredButton({Key? key}) : super(key: key);
-
-  @override
-  _ErroredButtonState createState() => _ErroredButtonState();
-}
-
-class _ErroredButtonState extends State<ErroredButton> {
-  late final StateManager stateManager;
-
-  @override
-  void initState() {
-    super.initState();
-    stateManager = StateManager();
-  }
-
-  @override
-  void dispose() {
-    stateManager.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => ElevatedButton(
-        onPressed: stateManager.throwException,
-        child: const Text('Throw exception'),
+  void _throwPureDartException() => Future<void>.error(
+        Exception('This is a pure Dart exception.'),
+        StackTrace.current,
       );
-}
 
-/// This could be an instance of any state management alternative.
-class StateManager extends ChangeNotifier {
-  void throwException() => throw Exception('This is a test exception.');
+  static const routeName = '/c';
 }
